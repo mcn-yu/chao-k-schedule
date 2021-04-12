@@ -1,0 +1,20 @@
+{
+  "name": "chao-k-schedule",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Nuxt.js Team",
+  "private": true,
+  "scripts": {
+    "dev": "MINIMAL=1 nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "post-update": "yarn upgrade --latest"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.1",
+    "axios": "0.21.1",
+    "nuxt": "^2.15.0"
+  },
+  "keywords": []
+}
