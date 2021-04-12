@@ -4,6 +4,8 @@ export default {
    ** Doc: https://vue-meta.nuxtjs.org/api/#metainfo-properties
    */
   buildDir: 'dist',
+  target: 'static',
+  ssr: false,
   head: {
     title: "Nuxt.js starter for CSB",
     meta: [
