@@ -1,15 +1,15 @@
 <template>
   <div>
-    <table class="yg-table table-bordered">
+    <table
+      class="yg-table table-bordered"
+      v-bind:style="{ minWidth: tableMin }"
+    >
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col">Room1</th>
-          <th scope="col">Room2</th>
-          <th scope="col">Room3</th>
-          <th scope="col">Room4</th>
-          <th scope="col">Room5</th>
-          <th scope="col">Room6</th>
+          <th scope="col" v-for="(i, k) in rooms" :key="k">
+            {{ i.fields.Name }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -19,105 +19,18 @@
           </td>
           <td
             :class="
-              i.fields.room1 == true ? 'yg-schedule-full' : 'yg-schedule-empty'
+              i.fields[i2.fields.Code] === true
+                ? 'yg-schedule-full'
+                : 'yg-schedule-empty'
             "
-            data-label="room1"
+            v-for="(i2, k2) in rooms"
+            :key="k2"
           >
-            {{ i.fields.room1 == true ? "×" : "◯" }}
-          </td>
-          <td
-            :class="
-              i.fields.room2 == true ? 'yg-schedule-full' : 'yg-schedule-empty'
-            "
-            data-label="room2"
-          >
-            {{ i.fields.room2 == true ? "×" : "◯" }}
-          </td>
-          <td
-            :class="
-              i.fields.room3 == true ? 'yg-schedule-full' : 'yg-schedule-empty'
-            "
-            data-label="room3"
-          >
-            {{ i.fields.room3 == true ? "×" : "◯" }}
-          </td>
-          <td
-            :class="
-              i.fields.room4 == true ? 'yg-schedule-full' : 'yg-schedule-empty'
-            "
-            data-label="room4"
-          >
-            {{ i.fields.room4 == true ? "×" : "◯" }}
-          </td>
-          <td
-            :class="
-              i.fields.room5 == true ? 'yg-schedule-full' : 'yg-schedule-empty'
-            "
-            data-label="room5"
-          >
-            {{ i.fields.room5 == true ? "×" : "◯" }}
-          </td>
-          <td
-            :class="
-              i.fields.room6 == true ? 'yg-schedule-full' : 'yg-schedule-empty'
-            "
-            data-label="room6"
-          >
-            {{ i.fields.room6 == true ? "×" : "◯" }}
+            {{ i.fields[i2.fields.Code] === true ? "×" : "◯" }}
           </td>
         </tr>
       </tbody>
     </table>
-
-    <!-- <table class="yg-table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Room1</th>
-          <th scope="col">Room2</th>
-          <th scope="col">Room3</th>
-          <th scope="col">Room4</th>
-          <th scope="col">Room5</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(i, k) in items" :key="k">
-          <td class="timeslot">
-            {{ i.time }}
-          </td>
-          <td
-            :class="i.room1 == true ? 'yg-schedule-full' : 'yg-schedule-empty'"
-            data-label="room1"
-          >
-            {{ i.room1 == true ? "予約済み" : "空き" }}
-          </td>
-          <td
-            :class="i.room2 == true ? 'yg-schedule-full' : 'yg-schedule-empty'"
-            data-label="room2"
-          >
-            {{ i.room2 == true ? "予約済み" : "空き" }}
-          </td>
-          <td
-            :class="i.room3 == true ? 'yg-schedule-full' : 'yg-schedule-empty'"
-            data-label="room3"
-          >
-            {{ i.room3 == true ? "予約済み" : "空き" }}
-          </td>
-          <td
-            :class="i.room4 == true ? 'yg-schedule-full' : 'yg-schedule-empty'"
-            data-label="room4"
-          >
-            {{ i.room4 == true ? "予約済み" : "空き" }}
-          </td>
-          <td
-            :class="i.room5 == true ? 'yg-schedule-full' : 'yg-schedule-empty'"
-            data-label="room5"
-          >
-            {{ i.room5 == true ? "予約済み" : "空き" }}
-          </td>
-        </tr>
-      </tbody>
-    </table> -->
   </div>
 </template>
 
@@ -125,159 +38,11 @@
 export default {
   data() {
     return {
-      // timeslots: [
-      //   "13:00-14:00",
-      //   "14:00-15:00",
-      //   "15:00-16:00",
-      //   "16:00-17:00",
-      //   "17:00-18:00",
-      //   "18:00-19:00",
-      //   "19:00-20:00",
-      //   "20:00-21:00",
-      //   "21:00-22:00",
-      //   "22:00-23:00",
-      //   "23:00-00:00",
-      //   "00:00-01:00",
-      //   "01:00-02:00",
-      //   "02:00-03:00",
-      //   "03:00-04:00",
-      // ],
       schedules: [],
-      items: [
-        {
-          time: "13:00-14:00",
-          room1: true,
-          room2: false,
-          room3: false,
-          room4: true,
-          room5: false,
-        },
-        {
-          time: "14:00-15:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: true,
-          room5: true,
-        },
-        {
-          time: "15:00-16:00",
-          room1: true,
-          room2: true,
-          room3: true,
-          room4: true,
-          room5: false,
-        },
-        {
-          time: "16:00-17:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "17:00-18:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "18:00-19:00",
-          room1: false,
-          room2: true,
-          room3: false,
-          room4: true,
-          room5: false,
-        },
-        {
-          time: "19:00-20:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "20:00-21:00",
-          room1: false,
-          room2: false,
-          room3: true,
-          room4: true,
-          room5: true,
-        },
-        {
-          time: "21:00-22:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "22:00-23:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "23:00-00:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "00:00-01:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: true,
-          room5: false,
-        },
-        {
-          time: "01:00-02:00",
-          room1: true,
-          room2: false,
-          room3: true,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "02:00-03:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-        {
-          time: "03:00-04:00",
-          room1: false,
-          room2: false,
-          room3: false,
-          room4: false,
-          room5: false,
-        },
-      ],
+      rooms: [],
+      tableMin: "500px",
     };
   },
-  // async asyncData({ $axios }) {
-  //   const schedules = await $axios.$get(
-  //     "https://api.airtable.com/v0/appZeqFbVXrGled2I/Table%201",
-  //     {
-  //       headers: {
-  //         Authorization: "Bearer keyda38YqYRDASE5C",
-  //       },
-  //     }
-  //   );
-  //   return { schedules };
-  // },
   created() {
     this.getData();
   },
@@ -291,7 +56,18 @@ export default {
           },
         }
       );
+      const reponse2 = await this.$axios.$get(
+        "https://api.airtable.com/v0/appZeqFbVXrGled2I/Room?sort%5B0%5D%5Bfield%5D=Order",
+        {
+          headers: {
+            Authorization: "Bearer keyda38YqYRDASE5C",
+          },
+        }
+      );
       this.schedules = reponse.records;
+      this.rooms = reponse2.records;
+      this.tableMin = this.rooms.length * 70 + "px";
+      console.log(this.tableMin);
     },
   },
 };
@@ -327,6 +103,10 @@ table.yg-table th {
   font-size: 0.85em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+table.yg-table {
+  overflow-x: auto;
 }
 
 .yg-thead {
